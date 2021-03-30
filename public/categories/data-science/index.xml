@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>data science on A Hugo website</title>
+    <link>/categories/data-science/</link>
+    <description>Recent content in data science on A Hugo website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 30 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/data-science/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Welcome to R</title>
+      <link>/2021/03/30/welcome-to-r/</link>
+      <pubDate>Tue, 30 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/2021/03/30/welcome-to-r/</guid>
+      <description>IntroductionWelcome to R! R is great tool for data analysis. Over the years, the language has seen a lot of growth, and it is now one of the two most common languages used for machine learning (the other being Python).
+R can be used for econometrics, geospatial analysis (it does not yet have the capabilities of full fledged GIS programs yet, but the capabilities are growing), machine learning, data visualization, text-mining and advanced statistics, among others.</description>
+    </item>
+    
+  </channel>
+</rss>

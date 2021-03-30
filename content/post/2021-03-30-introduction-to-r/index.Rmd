@@ -1,0 +1,525 @@
+---
+title: "Welcome to R"
+author: "Manish Gyawali"
+date: '2021-03-30'
+output: pdf_document
+slug: welcome-to-r
+tags: []
+categories:
+- R
+- blogs
+- data
+- data science
+- statistics
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE,
+                      echo = FALSE,
+                      warning = FALSE, comment = "")
+```
+
+# Introduction
+
+Welcome to R! R is great tool for data analysis. Over the years, the language has seen a lot of growth, and it is now one of the two most common languages used for machine learning (the other being Python). 
+
+R can be used for econometrics, geospatial analysis (it does not yet have the capabilities of full fledged GIS programs yet, but the capabilities are growing), machine learning, data visualization, text-mining and advanced statistics, among others. Specialized communities have grown up around R to adapt it for their needs.Of these, probably the most relevant is *Bioconductor*. Bioconductor is almost like a separate ecosystem within R and is associated with cutting edge research in genomics. 
+
+R can be combined with languages like Python, C++ and Stan as these languages have R does not have. 
+
+## Data Analysis
+
+There are many good online introductions to R. One of the peculiarities about R is that it has not developed uniformly. Because it has grown organically, there is a lack of standardization in the language. This is one of its drawbacks. 
+
+## Packages
+
+The original R language has evolved over time, but it is limited in what it can do. However, people have developed *packages* that use the language to perform specialized tasks. Although the original R (called 'base' R hereafter) has some capabilities for data visualization, for instance, they are not too good. Most R users will ditch base R visualizations for much richer fare provided by the likes of *ggplot2* or *lattice*. Similarly, for complex data analysis, it is often ill-advised to use base R; use *dplyr* (which ensures that code is systematic and clear) or *data.table* (which uses very concise coding, and which is ideal for large datasets that need to be processed quickly). 
+R users can use the *reticulate* package to connect with Python, the *Rcpp* package to connect with C++ and the *rstan* package to connect with Stan. 
+
+### Getting started
+
+All that is well and good; but how do you get started? Well, different people take different approaches to introducing R. My approach is to start with giving you a very thorough grounding in data structures. R's data structures are its most critical building block. 
+
+#### Bracket operators
+
+To get a feeling for the power of R, I will use some data sets that are inbuilt into the language. After all, R is meant for data analysis, and what better way to learn the language than to start using those datasets that are built into it?
+
+So let's briefly look at these sets first. To find out *which* data sets are present, use the code below.
+
+```{r,echo=TRUE}
+data()
+```
+
+We see that we have a new page called *R data sets*. Depending which packages have been loaded into the workspace (I will explain what this means), it gives us a list of datasets. For the moment, we are only interested in datasets in base R or the package *datasets* which is the first list of packages we are shown. The name of the dataset and a brief description is provided. Scroll down the list. We will use the dataset *USArrests* which is located towards the bottom of the list (it is alphabetically ordered) and type the following code:
+
+```{r, echo= TRUE}
+data("USArrests")
+```
+
+(If you are using RStudio, you will be prompted to enter the correct dataset. I recommend using RStudio as it is the best interface for R)
+
+#### Dataframes
+
+What happens when you write the above code is that the dataset is *loaded* into the workspace and you can access it. You can access it in different ways. You can look at some elements of interest (fist 5 rows, first 3 columns etc), or you can look at its structure. It is often most informative to look at its structure. We do that using the *str* function. 
+
+```{r, echo= TRUE}
+str(USArrests)
+```
+
+It states that the dataset is a *data.frame* that has 50 observations and 4 variables.A data frame is a special type of data structure in R that is used to store values. A data frame is similar to a matrix, in that it can have an arbitrary number of rows or columns, but each column has to be the same length. Unlike a matrix, however, different columns need not be of the same type(numeric,factor etc). Thus, matrix algebra can not be performed on a data frame, but we can do other things. 
+
+
+The data frame above is quite self-explanatory. In R, a *$* represents a column. Type
+
+```{r, echo= TRUE, eval=FALSE}
+USArrests$Murder
+```
+
+The output is a list of all the values in the column *Murder* in the dataset *USArrests*. Now type:
+
+```{r, echo= TRUE, eval=FALSE}
+USArrests[["Murder"]]
+```
+
+We see that both give us the same output. That is because these two operations are identical. The *dollar* operator *$* is equivalent to the *double bracket* operator, *[[]]*. There is a difference between the two that could be of interest to us though. Type:
+
+```{r, echo= TRUE, eval=FALSE}
+var <- "Murder"
+USArrests$var
+```
+
+That didn't work. Type, instead
+
+```{r, echo=TRUE, eval=FALSE}
+USAccDeaths[var]
+```
+
+That didn't work either. Type:
+
+```{r, echo=TRUE, eval=FALSE}
+USArrests[[var]]
+```
+
+That worked. 
+
+#### Single Bracket Operator
+
+Now, forget about the last three examples and think back to the double bracket operator. With it in mind, type the following:
+
+```{r, echo=TRUE, eval=FALSE}
+USArrests["Murder"]
+```
+
+Is there a difference? Of course there is. The dollar and the double bracket operators gave us a *list* of numbers. This new operator, the *single bracket* operator, *[]*, on the other hand, pulled out a column from the dataset. 
+
+#### Infix Operators
+
+Now type:
+
+```{r, echo=TRUE, eval=FALSE}
+`[`(USArrests,"Murder")
+```
+
+It's a strange way of subsetting, but it is equivalent to using the single bracket operator in the normal way. This is called an *infix* operator in R and it is useful in certain contexts. Naturally, the corresponding double bracket operator in infix form would be:
+
+```{r, echo=TRUE, eval=FALSE}
+`[[`(USArrests,"Murder")
+```
+
+### Extracting multiple columns
+
+It is easy to extract multiple columns from a data frame in R. We can extract by column names
+
+```{r, echo=TRUE, eval=FALSE}
+USArrests[,c("Murder","Assault")]
+```
+
+We can extract by column numbers
+
+```{r, echo=TRUE, eval=FALSE}
+USArrests[,c(1,2)]
+USArrests[,c(1,3:4)]
+```
+
+#### Summarising results
+
+Summarising results is easy. The following give the overall summary, mean and standard deviation for the 'Murder' variable in the data set.
+
+```{r, echo=TRUE, eval=FALSE}
+summary(USArrests$Murder)
+mean(USArrests$Murder)
+sd(USArrests$Murder)
+```
+
+But the mean won't work if there are missing values in the data, as is often the case.
+Consider the following dataset
+
+```{r,echo=FALSE}
+df <- as.data.frame(
+  cbind(
+    "a"=seq(5),
+    "b"=sample(5),
+    "c"=sample(5,replace = T),
+    "d"=c(sample(2),rep(NA,3))
+    )
+  )
+df
+```
+
+We have called the data frame *df*. The details of its construction need not concern us here.Let's find its structure
+
+```{r}
+str(df)
+```
+
+The data frame has four columns, a,b,c and d. Column d has *NA* values, which often represent missing data.
+
+```{r, echo=TRUE}
+mean(df$a)
+mean(df$b)
+mean(df$c)
+mean(df$d)
+```
+
+The code snippets above produce the (correct) means for columns a,b and c, but a *NA* for d. But if we want to know the mean for the column, we can disregard the missing values.
+
+```{r, echo=TRUE}
+mean(df$d,na.rm = TRUE)
+```
+
+The *na.rm = TRUE* argument that we affixed to the mean removes the missing values and calculates the mean on the non missing values. This is an easy way to remove missing values. In many cases however, it is not prudent to just throw away missing values. We therefore have ways of *imputing* missing data, i.e, replacing the missing values in the data with other data which we believe are very close to what the data might have been (or should have been). 
+
+Common packages for imputation in R are *Amelia* and *MICE*.
+
+### Functions
+
+We shall digress here slightly to consider a very important topic, *functions*. Functions are one of the two main building blocks in programming (the other being object-oriented programming or OOP for short). For R, however, functions are more important than OOP, and it is imperative for an R practitioner to have a fairly good idea of how they work. 
+
+We saw two functions already: *summary* and *mean*. We also tweaked the **mean** function a little bit by adding the **na.rm = TRUE** argument. How were we able to do that? We were able to do that because R allows users to customize functions to suit tasks. I'll get back to this point later. 
+
+For now, let me demonstrate how a function is created by creating a very simple function: a sum function that adds two numbers. The two numbers are $x$ and $y$. The function takes in those two numbers as the two inputs and outputs a single number $x+y$ as the output.
+
+```{r, echo=TRUE, eval=FALSE}
+function(x,y) x+y
+```
+
+#### Arguments
+
+A function is a recipe for giving us desired outputs by using appropriate inputs. For it to work properly, both the recipe and the inputs have to be specified appropriately.
+The output could be arithmetic (addition,subtraction), statistical (mean, standard deviation), graphical (histograms,bar-charts) or anything else. The function gives us the desired output by taking on appropriate inputs. 
+
+If we want an output that always sums the two inputs that we give the function, then we need to appropriately describe the function in such a way that it always takes in two values as the input and outputs a single value that is the sum of the two inputs.
+
+Functions will be described in greater detail in Section 
+
+
+### Assignment
+
+Not only did we create a function, we also assigned a name to it. It is pointless not to assign names to functions that we would like to use later as we need an easy way to reference them.
+
+However, sometimes we can use short functions that are not named. These *anonymous functions* will be discussed later.
+
+We used the odd symbol **<-**  to assign a name to a function. That symbol is the most commonly used method of assignment used in R. It can be used not only to assign names to functions but also to assign names to data frames, *matrices*, *lists*, *arrays*, *vectors*, *environments* and other R objects. 
+
+Another method of assignment that is sometimes used in R is **=**. For the purposes of this tutorial, the two methods of assignment are identical, but there are some issues that can crop up with using the equality sign in place of the default operator. As a result, it is advisable to use the default operator as much as possible. In RStudio, pressing *Alt+dash* simultaneously prints the default assignment operator. 
+
+### Creating data structures
+
+We already created our own data frame before, **df**, although I kept the code invisible. Let's retain the name, df, but create a new data frame. Then, let's create a new data frame, **df2**, like so: 
+
+```{r, echo=TRUE, eval=TRUE}
+df <- data.frame("a"= 1:10, "b" = 2:11)
+
+df2 <- data.frame(
+  "c"=seq(10),
+  "d"=sample(10),
+  "e"=sample(10,replace = TRUE),
+  "f"=round(seq(1,100,length.out = 10),0)
+  )
+```
+
+Let's look at the data frames. Using the function $head()$, without any additional argument, we can extract only the first six rows of the data frame. If we want to get a specific number of rows from the top of the data frame (the head), we need to specify that with an additional number. We can also extract rows from the bottom of the data frame by using the $tail()$ argument. 
+
+```{r, echo=TRUE, eval=TRUE}
+head(df,5)
+
+tail(df2,5)
+```
+
+We created a data frame $df$ with two columns, having the column names *a* and *b*, and another $df2$ which has four columns, *c*, *d*, *e* and *f*. If you are using RStudio, two clickable windows containing the two data frames should be visible side by side. You can then click the windows to get the expanded data frames. 
+
+Look at the code for $df$. It is quite self-explanatory. One column is a sequence of numbers from $1$ to $10$ and the other a sequence from $2$ to $11$. $1:x$ and $seq(x)$ are identical ways of obtaining a sequence of numbers from $1$ to $x$. 
+
+$df2$ is more interesting. It has four columns. *c* is a sequence of numbers from $1$ to $10$. *d* is a random sample of integers from $1$ to $10$ in which the numbers are generated *without replacement*. *e* is a random sample of integers from 1 to 10 *with replacement*. *f* is a sequence of integers from $1$ to $100$ in which the difference is always $11$. If we had not used the additional $length.out = 10$ argument, the numbers would be incremented by $1$, and we would not be able to form the data frame as the number of elements in this column would be much greater than the numbers in the other columns!
+
+#### Sampling in R
+
+The data frame above contained an instance of sampling. Sampling is the basic principle involved in statistics, so it would be a good idea to digress a little bit and explore this topic further.
+
+The general formulae for sampling in R is:
+
+```{r, echo=TRUE,eval=FALSE}
+
+sample(x,size) #1
+sample(x,size,replace = TRUE) #2
+
+```
+
+*x* is either a vector or a positive integer and *size* is a nonnegative integer that gives us the number of items to choose. By default, sampling is done *without* replacement and so if you want a sample with replacement, you have to add an additional argument as in #2.
+
+#### Generating random numbers
+
+Another procedure that is common in statistics is generate sequences of random numbers from specified distributions. Gaussian,uniform and exponential distributions are most commonly used.
+
+The general formula for generating a sequence from any distribution is:
+
+```{r,eval=F, echo=TRUE}
+
+distribution(n,start,end)
+
+```
+
+Certain distributions are defined differently. We will look at one of them, the Poisson distribution later.
+
+For now let's look at two important distributions: the uniform and normal distributions.Scroll all the way to the right to read the comments. The comments tell us that the first code snippet will generate $10$ numbers from the *uniform distribution* that lie between $0$ and $1$. The second snippet generates $10$ numbers from the *normal distribution* that lie between $0$ and $1$. **runif()** generates random uniforms and **rnorm()** generates random normals. 
+
+
+
+```{r, echo=TRUE}
+# Generating 10 numbers from a uniform distribution that lie between
+## 0 and 1
+runif(10,0,1) 
+
+# Generating 10 numbers from a normal distribution that lie between
+## 0 and 1
+rnorm(10,0,1) 
+```
+
+
+
+
+### The Central Limit Theorem
+
+Have you heard of the Central Limit Theorem? It is one of the two most important principles in applied statistics and is an extremely powerful idea of making sense of data. Basically, what the CLT states is that large distributions of statistics (such as means, medians or standard deviations) invariably take on a *bell shape*, with the greatest concentration of probability distribution in the center and a symmetric taper to both sides. 
+
+The CLT can easily be shown in R by means of a few lines of code. To do that we need a new function, **replicate()**. **replicate()** is an example of a specialized kind of function called a *functional*. Functionals are extremely common in R and are widely used in place of *for loops* that are used more often in other programming languages like Python. 
+
+We will have a lot more to say about functionals in general. For now, just think of functionals as **super functions** which take in a function as an argument. Take a look at the code below:
+
+```{r,eval=F}
+replicate(5000,mean(rnorm(10,0,1)))
+
+```
+
+We know that the **rnorm()** component will generate a random sequence of $10$ numbers from the normal distribution that lie between 0 and 1. When we apply the function **mean()** to this, it will give us a single number, the mean of these $10$ numbers.
+
+What **replicate()** does here is to generate $5000$ instances of these means. So you can see why **replicate()** is a functional -- one of its arguments is a function -- the mean of this particular distribution. 
+
+The Central Limit Theorem states that the mean of any distribution approximates the normal distribution as the sample size (number of samples) gets larger.
+
+To verify the CLT, let's use a distribution that is quite different from the normal distribution. Let's use the *Poisson* distribution. This distribution is used to understand the probability of the number of random events happening in a specific time period. Suppose you notice that your neighborhood has too many crows in the evening and you want to get an approximate understanding of the number of crows that fly over your house between $4$ pm and $6$ pm. You could use a Poisson distribution for that.
+
+To use the Poisson distribution, you do need to have some knowledge about the event. Suppose you found out that on average, $2.3$ birds fly over your house every minute.
+
+What is the probability that in a *two-minute* interval, exactly 3 birds pass overhead?
+
+We need two variables: $x$ (the number of events that we want) and $\lambda$ (which is called a *parameter*). The parameter in a Poisson distribution is the product of the actual frequency ($2.3$ birds per minute) and the time period that we want (two minutes).
+
+(I will show you how to use mathematical notation and Greek letters later).
+
+$\lambda = 2.3*2$
+
+$\lambda = 4.6$
+
+$x = 3$
+
+The formula for the Poisson distribution is as follows:
+
+$P = (\lambda)^x*(e^{-\lambda})/x!$
+
+And so, we should have:
+
+$P = ((4.6^3)*e^{-4.6})/3!$
+
+In terms or R code: 
+
+- ^ is the symbol for power
+- exp is the symbol for exponentiation
+- factorial is the symbol for factorial
+
+Let's use the formula and some basic R code to get the Poisson probability. 
+
+```{r, echo=TRUE}
+a1 <- 4.6^3
+a2 <- a1*exp(-4.6)
+(a3 <- a2/factorial(3))
+```
+
+We get $0.163$. Notice that we enclosed the last line inside simple brackets. That stores the value inside the assigned variable -- $a3$ in this case, *and* prints the output. 
+
+Now let's use R's inbuilt function for the Poisson distribution $dpois(x,\lambda)$ to verify the number for the probability that we just got. 
+
+```{r, echo=TRUE}
+dpois(3,4.6)
+```
+
+They seem to be the same. But with *logical operators* in R, we can check if they are truly true or false. Logical operators are a standard tool set in any programming language and make comparisons possible. In fact, without logical operators, programming would be impossible. 
+
+We will discuss these operators in more detail later, but for now we consider only one of them, the $==$ operator. This operator denotes *exact equality*. Take two exactly equal entities, separate them with this operator and enter that into R. You will get the output $TRUE$. If you don't get $TRUE$, you can only get $FALSE$ and that means that the two entities that you compared are not true. 
+
+```{r, echo=TRUE}
+dpois(3,4.6) == a3
+```
+
+We get an output of $FALSE$ which means that the two entities are not exactly true. Perhaps the difference between the numbers is very small. 
+
+If the presumed difference between two numerical objects to be compared is very small, you can use another logical operator, $<$ to test. This operator is the *less than* operator and corresponds to the operator with the same name in mathematics. Basically, you use this to check if the difference between two numbers is less than some specified number. If that is the case, we get a $TRUE$ as in the previous case. If not, we get a $FALSE$. To make the comparison, we further need the $-$, or *minus* operator. 
+
+Suppose we feel that the difference between the probability values using mathematical operations and the inbuilt **dpois()** function is less than $0.001$. We can test that as follows:
+
+```{r, echo=TRUE}
+(dpois(3,4.6) - a3) < 0.001
+```
+
+
+This time, we obtained a $TRUE$. The above example demonstrates an important idea in programming. You often have to think outside the box to get desired results. Very often, that means being practical. There could be all sorts of reasons why two entities might not be exactly equal. In that case, we might need to consider *approximate* equality. 
+
+In the example above, We obtained *logical expressions* -- $TRUE$ or $FALSE$ by using logical operators on numerical expressions.These logical expressions can be converted to *Boolean expressions* -- $0$ or $1$. Boolean expressions are in many cases easier to work with than logical expressions. For example, by counting the number of zeros or ones, we can calculate the number of true or false expressions.
+
+How do we convert logical expressions to Booleans? We simply enclose the expression in the function $as.numeric()$. This *always* converts $FALSE$ to $0$ and $TRUE$ to $1$. 
+
+```{r, echo=TRUE}
+as.numeric(dpois(3,4.6) == a3)
+as.numeric((dpois(3,4.6) - a3) < 0.001)
+```
+
+Let's revisit the Poisson distribution. Earlier, we showed the value of $x$ to be about $0.163$. This is the probability associated with that particular event -- in a two-minute interval, exactly 3 birds pass overhead. We could get a range of probabilities associated with different events -- exactly 0 birds pass overhead, exactly 1 bird passes overhead, etc. If we do that with enough numbers, we will get a *probability distribution*, 
+
+How can we do that? It is clear that we need to get the distribution for each number. In most programming languages, that can be done by the process of *looping*: start with a small number use regular increments till you reach a large number. For *each* number, get the corresponding distribution. A for loop is simple to execute in R: 
+
+```{r, eval=F}
+for(i in seq){
+  expression()
+}
+```
+
+Let's see what the above code tells us. *Seq* can be any sequence of numbers, say $1$ to $10$. The $i$ referes to any number in that sequence, beginning with 1 and ending with 10, as in our example. The $expression()$ referens to something that we do to that number. Let's consider an example.
+
+```{r}
+for_loop <- for(i in seq(10)) {
+  print(i)
+}
+```
+What this for loop did was to print the numbers $1$ to $10$. Through this simple example, we can see the power of the for loop. 
+We also introduced the $print()$ function here. We will have more to say about this later.
+
+Now let's use the power of loops to construct a graph. We cannot use the loop above as it only creates 10 instances of a single point, and so the $print()$ command would only print 10 different graphs of a single point. That is obviously not what we want. 
+
+To drive this point home consider the structure 
+
+```{r, echo=TRUE}
+str(for(i in seq(10)) {
+  print(i)
+})
+```
+
+
+To do that, we need to use the for loop *only* to create a data frame. The $plot()$ function will print the result of this entire data frame. To create a data frame in this way, we first need to *initialize* a value, and then add numbers to it.
+
+```{r, echo= TRUE}
+dat <- data.frame()
+for(i in seq(10)){
+  dat <- rbind(i,dat)
+}
+str(dat)
+```
+
+Let's go over what we did with the code above. We first initialized a data frame with no value. Then we kept *appending* to the initial data starting from $1$ and ending in $10$. Appending is the process of adding additional values to an initial dataset. We append values to a data frame using the $rbind()$ command. 
+
+```{r, echo= TRUE}
+dat <- data.frame()
+for(i in seq(10)){
+  dat <- rbind(rpois(10,4.6),dat)
+}
+names(dat) = paste0("V",seq(10))
+str(dat)
+
+```
+
+The code above creates a data frame of 10 points generated from a Poisson distribution. 
+Notice the $names()$ command. This names *columns* of a data frame. Here we have only one column, so only one column name *V1*. If we had not named the column, we would have been given, by default, a very weird column name. So naming is not a must here, but it is good practice. 
+
+Now we have the data frame, and now we can plot it. Notice that, if you are using RStudio, you are automatically promted to enter the correct variable name. 
+
+```{r, echo=TRUE}
+plot(dat$V1)
+```
+
+So we have a plot, but the plot looks very basic. R's graphical capabilities are immense, and one of the best reasons for employing the language. Certainly we can do a lot better than what we have!
+
+Let's start with names. We need a plot title, a name for the X-axis variable and a name for the Y-axis variable. Remember when we said that certain functions could accept additional arguments? Well, $plot()$ can accept arguments for title, x-axis name and y-axis name. 
+
+```{r,echo=TRUE}
+plot(dat$V1,main = "A Poisson Distribution", xlab = "Number",
+     ylab = "Probability")
+```
+
+The basic graph gives us a scatterplot output. But what if we want lines? Simple: there is another argument, *type* that we can use to specify the of plot we want. 
+
+To get lines, specify *type = "l"*. Use the help function to find different kinds plots. 
+
+```{r,echo=TRUE}
+plot(dat$V1,main = "A Poisson Distribution", xlab = "Number",
+     ylab = "Probability", type = "l")
+```
+
+Perhaps a bar plot is nicer looking? Try:
+
+```{r,echo=TRUE}
+barplot(dat$V1,main = "A Poisson Distribution", xlab = "Number",
+     ylab = "Probability")
+```
+
+Well and good. But what I really wanted to demonstrate was how the CLT can be used to get a bell curve from any distribution, even a Poisson! The distribution above is clearly not symmetrical -- it is weighted towards the right. 
+
+To do that we use our old friend $replicate()$, the functional. We mentioned that for loops aren't used widely in R. I used the for loop just to show you that it exists, and can be used here. We're not really going to use them from this point. I'm going to use functionals instead. 
+
+```{r,echo=TRUE}
+.r <- replicate(75,mean(rpois(10,4.6)))
+hist(.r, main = "Poisson Distribution")
+```
+
+Now this broadly follows the bell shaped pattern of the normal distribution -- with the mass of probability occuring near the center, and tapering towards the edges. Thus we have verified the CLT. 
+
+Let's demonstrate how the CLT works by using more values. The basic idea is that the smaller the sample size, the less the shape looks like a bell curve and vice versa. 
+
+Writing the function is simple. We just introduce the code for getting the histogram for any one value of $N$ into the function code block. We generalize by stating we want a function for **n**. The following code snippet shows how to do this. Notice that it is the exact thing, but we have replaced the number $75$ by **n**. We have also made a slight change in what the histogram displays. There is no title. The argument *main = ""* inside $hist()$ ensures that nothing is printed. Further, we have also changed the x-axis label. We have ensured that we print the sample size with the graph. 
+
+```{r, echo=TRUE}
+
+verify_clt <- function(n){
+  .r <- replicate(n,mean(rpois(10,4.6)))
+# prints sample size and ensured there is no title
+hist(.r, xlab = paste("N = ",n), main = "") 
+}
+
+```
+
+In all the preceeding cases, we obtained one graph in every figure. Sometimes, we want more than one graph per figure. In this case, we want to show how the distribution changes with the sample size, and we intend to use six sample sizes. Putting one graph per picture would unnecesarily waste space. 
+
+To use multiple graphs per figure, we use the $par()$ function. This is used to set graphical parameters. We set parameters by supplying additional arguments to the function. In this case, we want six graphs. We could get either $2$ columns of $3$ graphs or $3$ columns of $2$ graphs. We opt for the former -- three columns, two rows. We use the *mfrow = c()* argument inside $par()$ for that. After we have the needed format for graphs, use the function we created earlier, *verify_clt()*. The $hist()$ function is contained inside our function, so histograms will be produced automatically. 
+
+```{r, echo=TRUE}
+
+par(mfrow = c(2,3)) 
+
+verify_clt(10)
+verify_clt(20)
+verify_clt(60)
+verify_clt(100)
+verify_clt(250)
+verify_clt(1000)
+
+```
+
+

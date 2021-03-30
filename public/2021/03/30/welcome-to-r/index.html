@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.80.0" />
+
+
+<title>Welcome to R - A Hugo website</title>
+<meta property="og:title" content="Welcome to R - A Hugo website">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/rstudio/blogdown">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/rstudio">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">23 min read</span>
+    
+
+    <h1 class="article-title">Welcome to R</h1>
+
+    
+    <span class="article-date">2021-03-30</span>
+    
+
+    <div class="article-content">
+      
+<script src="/2021/03/30/welcome-to-r/index_files/header-attrs/header-attrs.js"></script>
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Welcome to R! R is great tool for data analysis. Over the years, the language has seen a lot of growth, and it is now one of the two most common languages used for machine learning (the other being Python).</p>
+<p>R can be used for econometrics, geospatial analysis (it does not yet have the capabilities of full fledged GIS programs yet, but the capabilities are growing), machine learning, data visualization, text-mining and advanced statistics, among others. Specialized communities have grown up around R to adapt it for their needs.Of these, probably the most relevant is <em>Bioconductor</em>. Bioconductor is almost like a separate ecosystem within R and is associated with cutting edge research in genomics.</p>
+<p>R can be combined with languages like Python, C++ and Stan as these languages have R does not have.</p>
+<div id="data-analysis" class="section level2">
+<h2>Data Analysis</h2>
+<p>There are many good online introductions to R. One of the peculiarities about R is that it has not developed uniformly. Because it has grown organically, there is a lack of standardization in the language. This is one of its drawbacks.</p>
+</div>
+<div id="packages" class="section level2">
+<h2>Packages</h2>
+<p>The original R language has evolved over time, but it is limited in what it can do. However, people have developed <em>packages</em> that use the language to perform specialized tasks. Although the original R (called ‘base’ R hereafter) has some capabilities for data visualization, for instance, they are not too good. Most R users will ditch base R visualizations for much richer fare provided by the likes of <em>ggplot2</em> or <em>lattice</em>. Similarly, for complex data analysis, it is often ill-advised to use base R; use <em>dplyr</em> (which ensures that code is systematic and clear) or <em>data.table</em> (which uses very concise coding, and which is ideal for large datasets that need to be processed quickly).
+R users can use the <em>reticulate</em> package to connect with Python, the <em>Rcpp</em> package to connect with C++ and the <em>rstan</em> package to connect with Stan.</p>
+<div id="getting-started" class="section level3">
+<h3>Getting started</h3>
+<p>All that is well and good; but how do you get started? Well, different people take different approaches to introducing R. My approach is to start with giving you a very thorough grounding in data structures. R’s data structures are its most critical building block.</p>
+<div id="bracket-operators" class="section level4">
+<h4>Bracket operators</h4>
+<p>To get a feeling for the power of R, I will use some data sets that are inbuilt into the language. After all, R is meant for data analysis, and what better way to learn the language than to start using those datasets that are built into it?</p>
+<p>So let’s briefly look at these sets first. To find out <em>which</em> data sets are present, use the code below.</p>
+<pre class="r"><code>data()</code></pre>
+<p>We see that we have a new page called <em>R data sets</em>. Depending which packages have been loaded into the workspace (I will explain what this means), it gives us a list of datasets. For the moment, we are only interested in datasets in base R or the package <em>datasets</em> which is the first list of packages we are shown. The name of the dataset and a brief description is provided. Scroll down the list. We will use the dataset <em>USArrests</em> which is located towards the bottom of the list (it is alphabetically ordered) and type the following code:</p>
+<pre class="r"><code>data(&quot;USArrests&quot;)</code></pre>
+<p>(If you are using RStudio, you will be prompted to enter the correct dataset. I recommend using RStudio as it is the best interface for R)</p>
+</div>
+<div id="dataframes" class="section level4">
+<h4>Dataframes</h4>
+<p>What happens when you write the above code is that the dataset is <em>loaded</em> into the workspace and you can access it. You can access it in different ways. You can look at some elements of interest (fist 5 rows, first 3 columns etc), or you can look at its structure. It is often most informative to look at its structure. We do that using the <em>str</em> function.</p>
+<pre class="r"><code>str(USArrests)
+&#39;data.frame&#39;:   50 obs. of  4 variables:
+ $ Murder  : num  13.2 10 8.1 8.8 9 7.9 3.3 5.9 15.4 17.4 ...
+ $ Assault : int  236 263 294 190 276 204 110 238 335 211 ...
+ $ UrbanPop: int  58 48 80 50 91 78 77 72 80 60 ...
+ $ Rape    : num  21.2 44.5 31 19.5 40.6 38.7 11.1 15.8 31.9 25.8 ...</code></pre>
+<p>It states that the dataset is a <em>data.frame</em> that has 50 observations and 4 variables.A data frame is a special type of data structure in R that is used to store values. A data frame is similar to a matrix, in that it can have an arbitrary number of rows or columns, but each column has to be the same length. Unlike a matrix, however, different columns need not be of the same type(numeric,factor etc). Thus, matrix algebra can not be performed on a data frame, but we can do other things.</p>
+<p>The data frame above is quite self-explanatory. In R, a <em>$</em> represents a column. Type</p>
+<pre class="r"><code>USArrests$Murder</code></pre>
+<p>The output is a list of all the values in the column <em>Murder</em> in the dataset <em>USArrests</em>. Now type:</p>
+<pre class="r"><code>USArrests[[&quot;Murder&quot;]]</code></pre>
+<p>We see that both give us the same output. That is because these two operations are identical. The <em>dollar</em> operator <em>$</em> is equivalent to the <em>double bracket</em> operator, <em>[[]]</em>. There is a difference between the two that could be of interest to us though. Type:</p>
+<pre class="r"><code>var &lt;- &quot;Murder&quot;
+USArrests$var</code></pre>
+<p>That didn’t work. Type, instead</p>
+<pre class="r"><code>USAccDeaths[var]</code></pre>
+<p>That didn’t work either. Type:</p>
+<pre class="r"><code>USArrests[[var]]</code></pre>
+<p>That worked.</p>
+</div>
+<div id="single-bracket-operator" class="section level4">
+<h4>Single Bracket Operator</h4>
+<p>Now, forget about the last three examples and think back to the double bracket operator. With it in mind, type the following:</p>
+<pre class="r"><code>USArrests[&quot;Murder&quot;]</code></pre>
+<p>Is there a difference? Of course there is. The dollar and the double bracket operators gave us a <em>list</em> of numbers. This new operator, the <em>single bracket</em> operator, <em>[]</em>, on the other hand, pulled out a column from the dataset.</p>
+</div>
+<div id="infix-operators" class="section level4">
+<h4>Infix Operators</h4>
+<p>Now type:</p>
+<pre class="r"><code>`[`(USArrests,&quot;Murder&quot;)</code></pre>
+<p>It’s a strange way of subsetting, but it is equivalent to using the single bracket operator in the normal way. This is called an <em>infix</em> operator in R and it is useful in certain contexts. Naturally, the corresponding double bracket operator in infix form would be:</p>
+<pre class="r"><code>`[[`(USArrests,&quot;Murder&quot;)</code></pre>
+</div>
+</div>
+<div id="extracting-multiple-columns" class="section level3">
+<h3>Extracting multiple columns</h3>
+<p>It is easy to extract multiple columns from a data frame in R. We can extract by column names</p>
+<pre class="r"><code>USArrests[,c(&quot;Murder&quot;,&quot;Assault&quot;)]</code></pre>
+<p>We can extract by column numbers</p>
+<pre class="r"><code>USArrests[,c(1,2)]
+USArrests[,c(1,3:4)]</code></pre>
+<div id="summarising-results" class="section level4">
+<h4>Summarising results</h4>
+<p>Summarising results is easy. The following give the overall summary, mean and standard deviation for the ‘Murder’ variable in the data set.</p>
+<pre class="r"><code>summary(USArrests$Murder)
+mean(USArrests$Murder)
+sd(USArrests$Murder)</code></pre>
+<p>But the mean won’t work if there are missing values in the data, as is often the case.
+Consider the following dataset</p>
+<pre><code>  a b c  d
+1 1 5 5  2
+2 2 2 4  1
+3 3 4 2 NA
+4 4 3 3 NA
+5 5 1 1 NA</code></pre>
+<p>We have called the data frame <em>df</em>. The details of its construction need not concern us here.Let’s find its structure</p>
+<pre><code>&#39;data.frame&#39;:   5 obs. of  4 variables:
+ $ a: int  1 2 3 4 5
+ $ b: int  5 2 4 3 1
+ $ c: int  5 4 2 3 1
+ $ d: int  2 1 NA NA NA</code></pre>
+<p>The data frame has four columns, a,b,c and d. Column d has <em>NA</em> values, which often represent missing data.</p>
+<pre class="r"><code>mean(df$a)
+[1] 3
+mean(df$b)
+[1] 3
+mean(df$c)
+[1] 3
+mean(df$d)
+[1] NA</code></pre>
+<p>The code snippets above produce the (correct) means for columns a,b and c, but a <em>NA</em> for d. But if we want to know the mean for the column, we can disregard the missing values.</p>
+<pre class="r"><code>mean(df$d,na.rm = TRUE)
+[1] 1.5</code></pre>
+<p>The <em>na.rm = TRUE</em> argument that we affixed to the mean removes the missing values and calculates the mean on the non missing values. This is an easy way to remove missing values. In many cases however, it is not prudent to just throw away missing values. We therefore have ways of <em>imputing</em> missing data, i.e, replacing the missing values in the data with other data which we believe are very close to what the data might have been (or should have been).</p>
+<p>Common packages for imputation in R are <em>Amelia</em> and <em>MICE</em>.</p>
+</div>
+</div>
+<div id="functions" class="section level3">
+<h3>Functions</h3>
+<p>We shall digress here slightly to consider a very important topic, <em>functions</em>. Functions are one of the two main building blocks in programming (the other being object-oriented programming or OOP for short). For R, however, functions are more important than OOP, and it is imperative for an R practitioner to have a fairly good idea of how they work.</p>
+<p>We saw two functions already: <em>summary</em> and <em>mean</em>. We also tweaked the <strong>mean</strong> function a little bit by adding the <strong>na.rm = TRUE</strong> argument. How were we able to do that? We were able to do that because R allows users to customize functions to suit tasks. I’ll get back to this point later.</p>
+<p>For now, let me demonstrate how a function is created by creating a very simple function: a sum function that adds two numbers. The two numbers are <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>. The function takes in those two numbers as the two inputs and outputs a single number <span class="math inline">\(x+y\)</span> as the output.</p>
+<pre class="r"><code>function(x,y) x+y</code></pre>
+<div id="arguments" class="section level4">
+<h4>Arguments</h4>
+<p>A function is a recipe for giving us desired outputs by using appropriate inputs. For it to work properly, both the recipe and the inputs have to be specified appropriately.
+The output could be arithmetic (addition,subtraction), statistical (mean, standard deviation), graphical (histograms,bar-charts) or anything else. The function gives us the desired output by taking on appropriate inputs.</p>
+<p>If we want an output that always sums the two inputs that we give the function, then we need to appropriately describe the function in such a way that it always takes in two values as the input and outputs a single value that is the sum of the two inputs.</p>
+<p>Functions will be described in greater detail in Section</p>
+</div>
+</div>
+<div id="assignment" class="section level3">
+<h3>Assignment</h3>
+<p>Not only did we create a function, we also assigned a name to it. It is pointless not to assign names to functions that we would like to use later as we need an easy way to reference them.</p>
+<p>However, sometimes we can use short functions that are not named. These <em>anonymous functions</em> will be discussed later.</p>
+<p>We used the odd symbol <strong>&lt;-</strong> to assign a name to a function. That symbol is the most commonly used method of assignment used in R. It can be used not only to assign names to functions but also to assign names to data frames, <em>matrices</em>, <em>lists</em>, <em>arrays</em>, <em>vectors</em>, <em>environments</em> and other R objects.</p>
+<p>Another method of assignment that is sometimes used in R is <strong>=</strong>. For the purposes of this tutorial, the two methods of assignment are identical, but there are some issues that can crop up with using the equality sign in place of the default operator. As a result, it is advisable to use the default operator as much as possible. In RStudio, pressing <em>Alt+dash</em> simultaneously prints the default assignment operator.</p>
+</div>
+<div id="creating-data-structures" class="section level3">
+<h3>Creating data structures</h3>
+<p>We already created our own data frame before, <strong>df</strong>, although I kept the code invisible. Let’s retain the name, df, but create a new data frame. Then, let’s create a new data frame, <strong>df2</strong>, like so:</p>
+<pre class="r"><code>df &lt;- data.frame(&quot;a&quot;= 1:10, &quot;b&quot; = 2:11)
+
+df2 &lt;- data.frame(
+  &quot;c&quot;=seq(10),
+  &quot;d&quot;=sample(10),
+  &quot;e&quot;=sample(10,replace = TRUE),
+  &quot;f&quot;=round(seq(1,100,length.out = 10),0)
+  )</code></pre>
+<p>Let’s look at the data frames. Using the function <span class="math inline">\(head()\)</span>, without any additional argument, we can extract only the first six rows of the data frame. If we want to get a specific number of rows from the top of the data frame (the head), we need to specify that with an additional number. We can also extract rows from the bottom of the data frame by using the <span class="math inline">\(tail()\)</span> argument.</p>
+<pre class="r"><code>head(df,5)
+  a b
+1 1 2
+2 2 3
+3 3 4
+4 4 5
+5 5 6
+
+tail(df2,5)
+    c d e   f
+6   6 1 7  56
+7   7 6 9  67
+8   8 5 4  78
+9   9 9 9  89
+10 10 8 8 100</code></pre>
+<p>We created a data frame <span class="math inline">\(df\)</span> with two columns, having the column names <em>a</em> and <em>b</em>, and another <span class="math inline">\(df2\)</span> which has four columns, <em>c</em>, <em>d</em>, <em>e</em> and <em>f</em>. If you are using RStudio, two clickable windows containing the two data frames should be visible side by side. You can then click the windows to get the expanded data frames.</p>
+<p>Look at the code for <span class="math inline">\(df\)</span>. It is quite self-explanatory. One column is a sequence of numbers from <span class="math inline">\(1\)</span> to <span class="math inline">\(10\)</span> and the other a sequence from <span class="math inline">\(2\)</span> to <span class="math inline">\(11\)</span>. <span class="math inline">\(1:x\)</span> and <span class="math inline">\(seq(x)\)</span> are identical ways of obtaining a sequence of numbers from <span class="math inline">\(1\)</span> to <span class="math inline">\(x\)</span>.</p>
+<p><span class="math inline">\(df2\)</span> is more interesting. It has four columns. <em>c</em> is a sequence of numbers from <span class="math inline">\(1\)</span> to <span class="math inline">\(10\)</span>. <em>d</em> is a random sample of integers from <span class="math inline">\(1\)</span> to <span class="math inline">\(10\)</span> in which the numbers are generated <em>without replacement</em>. <em>e</em> is a random sample of integers from 1 to 10 <em>with replacement</em>. <em>f</em> is a sequence of integers from <span class="math inline">\(1\)</span> to <span class="math inline">\(100\)</span> in which the difference is always <span class="math inline">\(11\)</span>. If we had not used the additional <span class="math inline">\(length.out = 10\)</span> argument, the numbers would be incremented by <span class="math inline">\(1\)</span>, and we would not be able to form the data frame as the number of elements in this column would be much greater than the numbers in the other columns!</p>
+<div id="sampling-in-r" class="section level4">
+<h4>Sampling in R</h4>
+<p>The data frame above contained an instance of sampling. Sampling is the basic principle involved in statistics, so it would be a good idea to digress a little bit and explore this topic further.</p>
+<p>The general formulae for sampling in R is:</p>
+<pre class="r"><code>
+sample(x,size) #1
+sample(x,size,replace = TRUE) #2
+</code></pre>
+<p><em>x</em> is either a vector or a positive integer and <em>size</em> is a nonnegative integer that gives us the number of items to choose. By default, sampling is done <em>without</em> replacement and so if you want a sample with replacement, you have to add an additional argument as in #2.</p>
+</div>
+<div id="generating-random-numbers" class="section level4">
+<h4>Generating random numbers</h4>
+<p>Another procedure that is common in statistics is generate sequences of random numbers from specified distributions. Gaussian,uniform and exponential distributions are most commonly used.</p>
+<p>The general formula for generating a sequence from any distribution is:</p>
+<pre class="r"><code>
+distribution(n,start,end)
+</code></pre>
+<p>Certain distributions are defined differently. We will look at one of them, the Poisson distribution later.</p>
+<p>For now let’s look at two important distributions: the uniform and normal distributions.Scroll all the way to the right to read the comments. The comments tell us that the first code snippet will generate <span class="math inline">\(10\)</span> numbers from the <em>uniform distribution</em> that lie between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>. The second snippet generates <span class="math inline">\(10\)</span> numbers from the <em>normal distribution</em> that lie between <span class="math inline">\(0\)</span> and <span class="math inline">\(1\)</span>. <strong>runif()</strong> generates random uniforms and <strong>rnorm()</strong> generates random normals.</p>
+<pre class="r"><code># Generating 10 numbers from a uniform distribution that lie between
+## 0 and 1
+runif(10,0,1) 
+ [1] 0.78306562 0.31880728 0.48107498 0.06588016 0.80884825 0.29912264
+ [7] 0.71930885 0.35404549 0.56266439 0.12021836
+
+# Generating 10 numbers from a normal distribution that lie between
+## 0 and 1
+rnorm(10,0,1) 
+ [1]  0.6258516 -0.6672783  1.6871050 -1.2585458  1.1191078  0.8699569
+ [7] -1.9865265 -0.2903475 -1.0889120 -1.9081990</code></pre>
+</div>
+</div>
+<div id="the-central-limit-theorem" class="section level3">
+<h3>The Central Limit Theorem</h3>
+<p>Have you heard of the Central Limit Theorem? It is one of the two most important principles in applied statistics and is an extremely powerful idea of making sense of data. Basically, what the CLT states is that large distributions of statistics (such as means, medians or standard deviations) invariably take on a <em>bell shape</em>, with the greatest concentration of probability distribution in the center and a symmetric taper to both sides.</p>
+<p>The CLT can easily be shown in R by means of a few lines of code. To do that we need a new function, <strong>replicate()</strong>. <strong>replicate()</strong> is an example of a specialized kind of function called a <em>functional</em>. Functionals are extremely common in R and are widely used in place of <em>for loops</em> that are used more often in other programming languages like Python.</p>
+<p>We will have a lot more to say about functionals in general. For now, just think of functionals as <strong>super functions</strong> which take in a function as an argument. Take a look at the code below:</p>
+<p>We know that the <strong>rnorm()</strong> component will generate a random sequence of <span class="math inline">\(10\)</span> numbers from the normal distribution that lie between 0 and 1. When we apply the function <strong>mean()</strong> to this, it will give us a single number, the mean of these <span class="math inline">\(10\)</span> numbers.</p>
+<p>What <strong>replicate()</strong> does here is to generate <span class="math inline">\(5000\)</span> instances of these means. So you can see why <strong>replicate()</strong> is a functional – one of its arguments is a function – the mean of this particular distribution.</p>
+<p>The Central Limit Theorem states that the mean of any distribution approximates the normal distribution as the sample size (number of samples) gets larger.</p>
+<p>To verify the CLT, let’s use a distribution that is quite different from the normal distribution. Let’s use the <em>Poisson</em> distribution. This distribution is used to understand the probability of the number of random events happening in a specific time period. Suppose you notice that your neighborhood has too many crows in the evening and you want to get an approximate understanding of the number of crows that fly over your house between <span class="math inline">\(4\)</span> pm and <span class="math inline">\(6\)</span> pm. You could use a Poisson distribution for that.</p>
+<p>To use the Poisson distribution, you do need to have some knowledge about the event. Suppose you found out that on average, <span class="math inline">\(2.3\)</span> birds fly over your house every minute.</p>
+<p>What is the probability that in a <em>two-minute</em> interval, exactly 3 birds pass overhead?</p>
+<p>We need two variables: <span class="math inline">\(x\)</span> (the number of events that we want) and <span class="math inline">\(\lambda\)</span> (which is called a <em>parameter</em>). The parameter in a Poisson distribution is the product of the actual frequency (<span class="math inline">\(2.3\)</span> birds per minute) and the time period that we want (two minutes).</p>
+<p>(I will show you how to use mathematical notation and Greek letters later).</p>
+<p><span class="math inline">\(\lambda = 2.3*2\)</span></p>
+<p><span class="math inline">\(\lambda = 4.6\)</span></p>
+<p><span class="math inline">\(x = 3\)</span></p>
+<p>The formula for the Poisson distribution is as follows:</p>
+<p><span class="math inline">\(P = (\lambda)^x*(e^{-\lambda})/x!\)</span></p>
+<p>And so, we should have:</p>
+<p><span class="math inline">\(P = ((4.6^3)*e^{-4.6})/3!\)</span></p>
+<p>In terms or R code:</p>
+<ul>
+<li>^ is the symbol for power</li>
+<li>exp is the symbol for exponentiation</li>
+<li>factorial is the symbol for factorial</li>
+</ul>
+<p>Let’s use the formula and some basic R code to get the Poisson probability.</p>
+<pre class="r"><code>a1 &lt;- 4.6^3
+a2 &lt;- a1*exp(-4.6)
+(a3 &lt;- a2/factorial(3))
+[1] 0.1630676</code></pre>
+<p>We get <span class="math inline">\(0.163\)</span>. Notice that we enclosed the last line inside simple brackets. That stores the value inside the assigned variable – <span class="math inline">\(a3\)</span> in this case, <em>and</em> prints the output.</p>
+<p>Now let’s use R’s inbuilt function for the Poisson distribution <span class="math inline">\(dpois(x,\lambda)\)</span> to verify the number for the probability that we just got.</p>
+<pre class="r"><code>dpois(3,4.6)
+[1] 0.1630676</code></pre>
+<p>They seem to be the same. But with <em>logical operators</em> in R, we can check if they are truly true or false. Logical operators are a standard tool set in any programming language and make comparisons possible. In fact, without logical operators, programming would be impossible.</p>
+<p>We will discuss these operators in more detail later, but for now we consider only one of them, the <span class="math inline">\(==\)</span> operator. This operator denotes <em>exact equality</em>. Take two exactly equal entities, separate them with this operator and enter that into R. You will get the output <span class="math inline">\(TRUE\)</span>. If you don’t get <span class="math inline">\(TRUE\)</span>, you can only get <span class="math inline">\(FALSE\)</span> and that means that the two entities that you compared are not true.</p>
+<pre class="r"><code>dpois(3,4.6) == a3
+[1] FALSE</code></pre>
+<p>We get an output of <span class="math inline">\(FALSE\)</span> which means that the two entities are not exactly true. Perhaps the difference between the numbers is very small.</p>
+<p>If the presumed difference between two numerical objects to be compared is very small, you can use another logical operator, <span class="math inline">\(&lt;\)</span> to test. This operator is the <em>less than</em> operator and corresponds to the operator with the same name in mathematics. Basically, you use this to check if the difference between two numbers is less than some specified number. If that is the case, we get a <span class="math inline">\(TRUE\)</span> as in the previous case. If not, we get a <span class="math inline">\(FALSE\)</span>. To make the comparison, we further need the <span class="math inline">\(-\)</span>, or <em>minus</em> operator.</p>
+<p>Suppose we feel that the difference between the probability values using mathematical operations and the inbuilt <strong>dpois()</strong> function is less than <span class="math inline">\(0.001\)</span>. We can test that as follows:</p>
+<pre class="r"><code>(dpois(3,4.6) - a3) &lt; 0.001
+[1] TRUE</code></pre>
+<p>This time, we obtained a <span class="math inline">\(TRUE\)</span>. The above example demonstrates an important idea in programming. You often have to think outside the box to get desired results. Very often, that means being practical. There could be all sorts of reasons why two entities might not be exactly equal. In that case, we might need to consider <em>approximate</em> equality.</p>
+<p>In the example above, We obtained <em>logical expressions</em> – <span class="math inline">\(TRUE\)</span> or <span class="math inline">\(FALSE\)</span> by using logical operators on numerical expressions.These logical expressions can be converted to <em>Boolean expressions</em> – <span class="math inline">\(0\)</span> or <span class="math inline">\(1\)</span>. Boolean expressions are in many cases easier to work with than logical expressions. For example, by counting the number of zeros or ones, we can calculate the number of true or false expressions.</p>
+<p>How do we convert logical expressions to Booleans? We simply enclose the expression in the function <span class="math inline">\(as.numeric()\)</span>. This <em>always</em> converts <span class="math inline">\(FALSE\)</span> to <span class="math inline">\(0\)</span> and <span class="math inline">\(TRUE\)</span> to <span class="math inline">\(1\)</span>.</p>
+<pre class="r"><code>as.numeric(dpois(3,4.6) == a3)
+[1] 0
+as.numeric((dpois(3,4.6) - a3) &lt; 0.001)
+[1] 1</code></pre>
+<p>Let’s revisit the Poisson distribution. Earlier, we showed the value of <span class="math inline">\(x\)</span> to be about <span class="math inline">\(0.163\)</span>. This is the probability associated with that particular event – in a two-minute interval, exactly 3 birds pass overhead. We could get a range of probabilities associated with different events – exactly 0 birds pass overhead, exactly 1 bird passes overhead, etc. If we do that with enough numbers, we will get a <em>probability distribution</em>,</p>
+<p>How can we do that? It is clear that we need to get the distribution for each number. In most programming languages, that can be done by the process of <em>looping</em>: start with a small number use regular increments till you reach a large number. For <em>each</em> number, get the corresponding distribution. A for loop is simple to execute in R:</p>
+<p>Let’s see what the above code tells us. <em>Seq</em> can be any sequence of numbers, say <span class="math inline">\(1\)</span> to <span class="math inline">\(10\)</span>. The <span class="math inline">\(i\)</span> referes to any number in that sequence, beginning with 1 and ending with 10, as in our example. The <span class="math inline">\(expression()\)</span> referens to something that we do to that number. Let’s consider an example.</p>
+<pre><code>[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+[1] 10</code></pre>
+<p>What this for loop did was to print the numbers <span class="math inline">\(1\)</span> to <span class="math inline">\(10\)</span>. Through this simple example, we can see the power of the for loop.
+We also introduced the <span class="math inline">\(print()\)</span> function here. We will have more to say about this later.</p>
+<p>Now let’s use the power of loops to construct a graph. We cannot use the loop above as it only creates 10 instances of a single point, and so the <span class="math inline">\(print()\)</span> command would only print 10 different graphs of a single point. That is obviously not what we want.</p>
+<p>To drive this point home consider the structure</p>
+<pre class="r"><code>str(for(i in seq(10)) {
+  print(i)
+})
+[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+[1] 10
+ NULL</code></pre>
+<p>To do that, we need to use the for loop <em>only</em> to create a data frame. The <span class="math inline">\(plot()\)</span> function will print the result of this entire data frame. To create a data frame in this way, we first need to <em>initialize</em> a value, and then add numbers to it.</p>
+<pre class="r"><code>dat &lt;- data.frame()
+for(i in seq(10)){
+  dat &lt;- rbind(i,dat)
+}
+str(dat)
+&#39;data.frame&#39;:   10 obs. of  1 variable:
+ $ X1L: int  10 9 8 7 6 5 4 3 2 1</code></pre>
+<p>Let’s go over what we did with the code above. We first initialized a data frame with no value. Then we kept <em>appending</em> to the initial data starting from <span class="math inline">\(1\)</span> and ending in <span class="math inline">\(10\)</span>. Appending is the process of adding additional values to an initial dataset. We append values to a data frame using the <span class="math inline">\(rbind()\)</span> command.</p>
+<pre class="r"><code>dat &lt;- data.frame()
+for(i in seq(10)){
+  dat &lt;- rbind(rpois(10,4.6),dat)
+}
+names(dat) = paste0(&quot;V&quot;,seq(10))
+str(dat)
+&#39;data.frame&#39;:   10 obs. of  10 variables:
+ $ V1 : int  2 8 3 5 7 2 3 10 4 6
+ $ V2 : int  3 7 8 5 4 5 3 3 4 5
+ $ V3 : int  2 10 7 3 5 1 0 3 5 3
+ $ V4 : int  6 1 4 5 9 6 3 7 5 1
+ $ V5 : int  5 1 5 5 5 6 7 3 3 5
+ $ V6 : int  6 5 12 6 4 4 4 5 4 6
+ $ V7 : int  4 4 4 6 3 4 6 5 4 5
+ $ V8 : int  3 4 6 6 6 5 6 6 11 6
+ $ V9 : int  5 2 4 3 6 2 7 5 3 6
+ $ V10: int  7 6 3 1 2 5 8 6 4 6</code></pre>
+<p>The code above creates a data frame of 10 points generated from a Poisson distribution.
+Notice the <span class="math inline">\(names()\)</span> command. This names <em>columns</em> of a data frame. Here we have only one column, so only one column name <em>V1</em>. If we had not named the column, we would have been given, by default, a very weird column name. So naming is not a must here, but it is good practice.</p>
+<p>Now we have the data frame, and now we can plot it. Notice that, if you are using RStudio, you are automatically promted to enter the correct variable name.</p>
+<pre class="r"><code>plot(dat$V1)</code></pre>
+<p><img src="/2021/03/30/welcome-to-r/index_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p>So we have a plot, but the plot looks very basic. R’s graphical capabilities are immense, and one of the best reasons for employing the language. Certainly we can do a lot better than what we have!</p>
+<p>Let’s start with names. We need a plot title, a name for the X-axis variable and a name for the Y-axis variable. Remember when we said that certain functions could accept additional arguments? Well, <span class="math inline">\(plot()\)</span> can accept arguments for title, x-axis name and y-axis name.</p>
+<pre class="r"><code>plot(dat$V1,main = &quot;A Poisson Distribution&quot;, xlab = &quot;Number&quot;,
+     ylab = &quot;Probability&quot;)</code></pre>
+<p><img src="/2021/03/30/welcome-to-r/index_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<p>The basic graph gives us a scatterplot output. But what if we want lines? Simple: there is another argument, <em>type</em> that we can use to specify the of plot we want.</p>
+<p>To get lines, specify <em>type = “l”</em>. Use the help function to find different kinds plots.</p>
+<pre class="r"><code>plot(dat$V1,main = &quot;A Poisson Distribution&quot;, xlab = &quot;Number&quot;,
+     ylab = &quot;Probability&quot;, type = &quot;l&quot;)</code></pre>
+<p><img src="/2021/03/30/welcome-to-r/index_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p>Perhaps a bar plot is nicer looking? Try:</p>
+<pre class="r"><code>barplot(dat$V1,main = &quot;A Poisson Distribution&quot;, xlab = &quot;Number&quot;,
+     ylab = &quot;Probability&quot;)</code></pre>
+<p><img src="/2021/03/30/welcome-to-r/index_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p>Well and good. But what I really wanted to demonstrate was how the CLT can be used to get a bell curve from any distribution, even a Poisson! The distribution above is clearly not symmetrical – it is weighted towards the right.</p>
+<p>To do that we use our old friend <span class="math inline">\(replicate()\)</span>, the functional. We mentioned that for loops aren’t used widely in R. I used the for loop just to show you that it exists, and can be used here. We’re not really going to use them from this point. I’m going to use functionals instead.</p>
+<pre class="r"><code>.r &lt;- replicate(75,mean(rpois(10,4.6)))
+hist(.r, main = &quot;Poisson Distribution&quot;)</code></pre>
+<p><img src="/2021/03/30/welcome-to-r/index_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p>Now this broadly follows the bell shaped pattern of the normal distribution – with the mass of probability occuring near the center, and tapering towards the edges. Thus we have verified the CLT.</p>
+<p>Let’s demonstrate how the CLT works by using more values. The basic idea is that the smaller the sample size, the less the shape looks like a bell curve and vice versa.</p>
+<p>Writing the function is simple. We just introduce the code for getting the histogram for any one value of <span class="math inline">\(N\)</span> into the function code block. We generalize by stating we want a function for <strong>n</strong>. The following code snippet shows how to do this. Notice that it is the exact thing, but we have replaced the number <span class="math inline">\(75\)</span> by <strong>n</strong>. We have also made a slight change in what the histogram displays. There is no title. The argument <em>main = ""</em> inside <span class="math inline">\(hist()\)</span> ensures that nothing is printed. Further, we have also changed the x-axis label. We have ensured that we print the sample size with the graph.</p>
+<pre class="r"><code>
+verify_clt &lt;- function(n){
+  .r &lt;- replicate(n,mean(rpois(10,4.6)))
+# prints sample size and ensured there is no title
+hist(.r, xlab = paste(&quot;N = &quot;,n), main = &quot;&quot;) 
+}</code></pre>
+<p>In all the preceeding cases, we obtained one graph in every figure. Sometimes, we want more than one graph per figure. In this case, we want to show how the distribution changes with the sample size, and we intend to use six sample sizes. Putting one graph per picture would unnecesarily waste space.</p>
+<p>To use multiple graphs per figure, we use the <span class="math inline">\(par()\)</span> function. This is used to set graphical parameters. We set parameters by supplying additional arguments to the function. In this case, we want six graphs. We could get either <span class="math inline">\(2\)</span> columns of <span class="math inline">\(3\)</span> graphs or <span class="math inline">\(3\)</span> columns of <span class="math inline">\(2\)</span> graphs. We opt for the former – three columns, two rows. We use the <em>mfrow = c()</em> argument inside <span class="math inline">\(par()\)</span> for that. After we have the needed format for graphs, use the function we created earlier, <em>verify_clt()</em>. The <span class="math inline">\(hist()\)</span> function is contained inside our function, so histograms will be produced automatically.</p>
+<pre class="r"><code>
+par(mfrow = c(2,3)) 
+
+verify_clt(10)
+verify_clt(20)
+verify_clt(60)
+verify_clt(100)
+verify_clt(250)
+verify_clt(1000)</code></pre>
+<p><img src="/2021/03/30/welcome-to-r/index_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+
