@@ -1,0 +1,28 @@
+---
+title: Introduction to dplyr and related programs
+author: Manish Gyawali
+date: '2021-03-30'
+slug: introduction-to-dplyr-and-related-programs
+categories:
+  - data
+  - dplyr
+  - tidyverse
+tags: []
+---
+
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE,
+                      echo = TRUE,
+                      warning = FALSE, comment = "")
+```
+
+```{r}
+library(dplyr)
+
+```
+
+```{r}
+glimpse(mtcars)
+```
+
