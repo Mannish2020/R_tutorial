@@ -17,12 +17,30 @@ knitr::opts_chunk$set(collapse = TRUE,
                       warning = FALSE, comment = "")
 ```
 
+We got started with base R. Now it's time to introduce some packages. As explained earlier, packages add flavour to R and allow you to work much more efficiently and creatively. 
+
+I'll introduce two of the most useful packages in R -- *dplyr* for data management and *ggplot2* for graphics. Both of these were created by Hadley Wickham. Wickham has created or collaborated on making many other packages, and we'll see more of those. For now, let's just look at these two.
+
+In R, if you want to access packages, you need to use the $library()$ function. Put the name of the package inside the function, like so:
+
 ```{r}
 library(dplyr)
-
+library(ggplot2)
 ```
 
-```{r}
-glimpse(mtcars)
+Did that work? If you were told that the packages do not exist, you'll have to install them. Installing them is easy. Use the $install.packages()$ function for that. Put the name of the package within quotes, as follows: 
+
+```{r, eval=FALSE}
+install.packages("dplyr")
+install.packages("ggplot2")
 ```
+
+You can also batch install packages as follows:
+
+```{r, eval=FALSE}
+install.packages(c("dplyr","ggplot2"))
+```
+
+Once you have installed the packages, you can load them using the $library()$ function as shown earlier. Unfortunately, you cannot batch load packages. Packages have to be loaded individually. 
+
 
