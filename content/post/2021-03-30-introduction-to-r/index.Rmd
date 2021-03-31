@@ -1,9 +1,9 @@
 ---
-title: "Welcome to R"
+title: "R Basics"
 author: "Manish Gyawali"
 date: '2021-03-30'
 output: pdf_document
-slug: welcome-to-r
+slug: basics
 tags: []
 categories:
 - R
@@ -19,9 +19,8 @@ knitr::opts_chunk$set(collapse = TRUE,
                       warning = FALSE, comment = "")
 ```
 
-# Introduction
 
-Welcome to R! R is great tool for data analysis. Over the years, the language has seen a lot of growth, and it is now one of the two most common languages used for machine learning (the other being Python). 
+Now that you've installed R and R Studio, and are familiar with their usage, it is time to perform some data analysis!
 
 R can be used for econometrics, geospatial analysis (it does not yet have the capabilities of full fledged GIS programs yet, but the capabilities are growing), machine learning, data visualization, text-mining and advanced statistics, among others. Specialized communities have grown up around R to adapt it for their needs.Of these, probably the most relevant is *Bioconductor*. Bioconductor is almost like a separate ecosystem within R and is associated with cutting edge research in genomics. 
 

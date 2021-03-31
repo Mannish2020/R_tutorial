@@ -1,5 +1,5 @@
 ---
-title: "Welcome to R"
+title: "R Basics"
 author: "Manish Gyawali"
 date: '2021-03-30'
 output: pdf_document
@@ -16,9 +16,7 @@ categories:
 <script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
 
 
-<div id="introduction" class="section level1">
-<h1>Introduction</h1>
-<p>Welcome to R! R is great tool for data analysis. Over the years, the language has seen a lot of growth, and it is now one of the two most common languages used for machine learning (the other being Python).</p>
+<p>Now that you’ve installed R and R Studio, and are familiar with their usage, it is time to perform some data analysis!</p>
 <p>R can be used for econometrics, geospatial analysis (it does not yet have the capabilities of full fledged GIS programs yet, but the capabilities are growing), machine learning, data visualization, text-mining and advanced statistics, among others. Specialized communities have grown up around R to adapt it for their needs.Of these, probably the most relevant is <em>Bioconductor</em>. Bioconductor is almost like a separate ecosystem within R and is associated with cutting edge research in genomics.</p>
 <p>R can be combined with languages like Python, C++ and Stan as these languages have R does not have.</p>
 <div id="data-analysis" class="section level2">
@@ -94,16 +92,16 @@ sd(USArrests$Murder)</code></pre>
 <p>But the mean won’t work if there are missing values in the data, as is often the case.
 Consider the following dataset</p>
 <pre><code>  a b c  d
-1 1 5 5  2
-2 2 2 4  1
-3 3 4 2 NA
-4 4 3 3 NA
-5 5 1 1 NA</code></pre>
+1 1 1 5  2
+2 2 4 5  1
+3 3 5 2 NA
+4 4 3 5 NA
+5 5 2 5 NA</code></pre>
 <p>We have called the data frame <em>df</em>. The details of its construction need not concern us here.Let’s find its structure</p>
 <pre><code>&#39;data.frame&#39;:   5 obs. of  4 variables:
  $ a: int  1 2 3 4 5
- $ b: int  5 2 4 3 1
- $ c: int  5 4 2 3 1
+ $ b: int  1 4 5 3 2
+ $ c: int  5 5 2 5 5
  $ d: int  2 1 NA NA NA</code></pre>
 <p>The data frame has four columns, a,b,c and d. Column d has <em>NA</em> values, which often represent missing data.</p>
 <pre class="r"><code>mean(df$a)
@@ -111,7 +109,7 @@ Consider the following dataset</p>
 mean(df$b)
 [1] 3
 mean(df$c)
-[1] 3
+[1] 4.4
 mean(df$d)
 [1] NA</code></pre>
 <p>The code snippets above produce the (correct) means for columns a,b and c, but a <em>NA</em> for d. But if we want to know the mean for the column, we can disregard the missing values.</p>
@@ -163,12 +161,12 @@ df2 &lt;- data.frame(
 5 5 6
 
 tail(df2,5)
-    c d e   f
-6   6 1 7  56
-7   7 6 9  67
-8   8 5 4  78
-9   9 9 9  89
-10 10 8 8 100</code></pre>
+    c  d  e   f
+6   6  1  6  56
+7   7  4 10  67
+8   8 10  4  78
+9   9  5 10  89
+10 10  8  2 100</code></pre>
 <p>We created a data frame <span class="math inline">\(df\)</span> with two columns, having the column names <em>a</em> and <em>b</em>, and another <span class="math inline">\(df2\)</span> which has four columns, <em>c</em>, <em>d</em>, <em>e</em> and <em>f</em>. If you are using RStudio, two clickable windows containing the two data frames should be visible side by side. You can then click the windows to get the expanded data frames.</p>
 <p>Look at the code for <span class="math inline">\(df\)</span>. It is quite self-explanatory. One column is a sequence of numbers from <span class="math inline">\(1\)</span> to <span class="math inline">\(10\)</span> and the other a sequence from <span class="math inline">\(2\)</span> to <span class="math inline">\(11\)</span>. <span class="math inline">\(1:x\)</span> and <span class="math inline">\(seq(x)\)</span> are identical ways of obtaining a sequence of numbers from <span class="math inline">\(1\)</span> to <span class="math inline">\(x\)</span>.</p>
 <p><span class="math inline">\(df2\)</span> is more interesting. It has four columns. <em>c</em> is a sequence of numbers from <span class="math inline">\(1\)</span> to <span class="math inline">\(10\)</span>. <em>d</em> is a random sample of integers from <span class="math inline">\(1\)</span> to <span class="math inline">\(10\)</span> in which the numbers are generated <em>without replacement</em>. <em>e</em> is a random sample of integers from 1 to 10 <em>with replacement</em>. <em>f</em> is a sequence of integers from <span class="math inline">\(1\)</span> to <span class="math inline">\(100\)</span> in which the difference is always <span class="math inline">\(11\)</span>. If we had not used the additional <span class="math inline">\(length.out = 10\)</span> argument, the numbers would be incremented by <span class="math inline">\(1\)</span>, and we would not be able to form the data frame as the number of elements in this column would be much greater than the numbers in the other columns!</p>
@@ -194,14 +192,14 @@ distribution(n,start,end)
 <pre class="r"><code># Generating 10 numbers from a uniform distribution that lie between
 ## 0 and 1
 runif(10,0,1) 
- [1] 0.78306562 0.31880728 0.48107498 0.06588016 0.80884825 0.29912264
- [7] 0.71930885 0.35404549 0.56266439 0.12021836
+ [1] 0.59391584 0.42667118 0.11805600 0.43865063 0.85179049 0.22428934
+ [7] 0.57516235 0.04594138 0.72580136 0.38168982
 
 # Generating 10 numbers from a normal distribution that lie between
 ## 0 and 1
 rnorm(10,0,1) 
- [1]  0.6258516 -0.6672783  1.6871050 -1.2585458  1.1191078  0.8699569
- [7] -1.9865265 -0.2903475 -1.0889120 -1.9081990</code></pre>
+ [1] -0.6889008  0.6760888 -0.6854069 -1.0262151  0.8795804  0.8026845
+ [7] -0.9143330  1.1264659  0.1383487 -0.2347954</code></pre>
 </div>
 </div>
 <div id="the-central-limit-theorem" class="section level3">
@@ -302,16 +300,16 @@ for(i in seq(10)){
 names(dat) = paste0(&quot;V&quot;,seq(10))
 str(dat)
 &#39;data.frame&#39;:   10 obs. of  10 variables:
- $ V1 : int  2 8 3 5 7 2 3 10 4 6
- $ V2 : int  3 7 8 5 4 5 3 3 4 5
- $ V3 : int  2 10 7 3 5 1 0 3 5 3
- $ V4 : int  6 1 4 5 9 6 3 7 5 1
- $ V5 : int  5 1 5 5 5 6 7 3 3 5
- $ V6 : int  6 5 12 6 4 4 4 5 4 6
- $ V7 : int  4 4 4 6 3 4 6 5 4 5
- $ V8 : int  3 4 6 6 6 5 6 6 11 6
- $ V9 : int  5 2 4 3 6 2 7 5 3 6
- $ V10: int  7 6 3 1 2 5 8 6 4 6</code></pre>
+ $ V1 : int  4 7 2 3 3 6 3 7 2 5
+ $ V2 : int  6 1 5 3 5 3 5 1 5 8
+ $ V3 : int  5 5 7 2 5 2 4 3 5 6
+ $ V4 : int  4 4 4 5 6 2 5 5 4 2
+ $ V5 : int  5 5 2 4 5 11 4 4 4 5
+ $ V6 : int  5 2 7 0 3 8 4 3 3 6
+ $ V7 : int  5 7 4 3 2 6 4 6 3 1
+ $ V8 : int  4 4 2 6 4 1 1 3 3 5
+ $ V9 : int  6 4 5 5 1 6 6 4 7 2
+ $ V10: int  5 2 4 4 4 3 4 2 2 3</code></pre>
 <p>The code above creates a data frame of 10 points generated from a Poisson distribution.
 Notice the <span class="math inline">\(names()\)</span> command. This names <em>columns</em> of a data frame. Here we have only one column, so only one column name <em>V1</em>. If we had not named the column, we would have been given, by default, a very weird column name. So naming is not a must here, but it is good practice.</p>
 <p>Now we have the data frame, and now we can plot it. Notice that, if you are using RStudio, you are automatically promted to enter the correct variable name.</p>
@@ -357,6 +355,5 @@ verify_clt(100)
 verify_clt(250)
 verify_clt(1000)</code></pre>
 <p><img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
-</div>
 </div>
 </div>

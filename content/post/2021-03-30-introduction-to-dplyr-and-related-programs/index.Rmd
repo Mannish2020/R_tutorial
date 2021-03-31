@@ -1,8 +1,8 @@
 ---
-title: Introduction to dplyr and related programs
+title: Using Packages
 author: Manish Gyawali
-date: '2021-03-30'
-slug: introduction-to-dplyr-and-related-programs
+date: '2021-03-31'
+slug: packages
 categories:
   - data
   - dplyr
@@ -42,5 +42,57 @@ install.packages(c("dplyr","ggplot2"))
 ```
 
 Once you have installed the packages, you can load them using the $library()$ function as shown earlier. Unfortunately, you cannot batch load packages. Packages have to be loaded individually. 
+
+We will first look at **dplyr**. This package is a comprehensive data management package and has many functions in it. You can see all the functions in it by inputing *dplyr::* at the console (the bottom section where you type commands). The functions are listed alphabetically. The first function you see is $across()$. Functions are preceded by a diagonal blue rectangle. Scroll down the list. You will see commands that are preceded by a square white box. These are not commands, but datasets that are contained in the package. The first data set you will see is called *band instruments*. Click on it.
+
+You should have printed this:
+
+```{r, eval=FALSE}
+dplyr::band_instruments 
+```
+
+You should have obtained this:
+
+```{r, echo=FALSE}
+band_instruments
+```
+
+A *tibble* is a special type of data frame that is used by dplyr and associated packages.We are done looking at this table, as it is too small to be of interest. Let's look at another package. Scroll down the list of dplyr commands until you reach the *starwars* data set and open that in the usual way. You should obtain the following data set.
+
+```{r, echo=FALSE}
+starwars
+```
+
+It is an *87 X 14* tibble. That is, there are $87$ rows and $14$ columns. Look at the table. The first two rows are unnumbered. These rows are not included in the number of rows. They are just markers. The first unnumbered row gives us the names of the columns. The row after that (in italics and enclosed by parantheses) gives us the *type* of column it is. 
+
+Now let's move on to dplyr commands. The first command is called $filter()$. Get help on this by typing, at the console the following:
+
+```{r, eval=FALSE}
+?dplyr::filter
+```
+
+Actually, since you already loaded the dplyr package, you can just type
+
+```{r, eval=FALSE}
+?filter
+```
+
+However, this command brings up two options to get help on. The first one is from the package **dplyr** and the second from the package **stats**. This is because there are *two* commands called $filter()$ located in two different packages. Preceding the command by the package name and a **::** when searching for help brings up the exact command you are looking for whereas not specifying the package will give you a list of options as is the case here.
+
+You can also load (not only get information on) commands or data sets from packages that you have not loaded by doing the same thing. Type the following:
+
+```{r, eval=FALSE}
+MASS::abbey
+```
+
+You will obtain this:
+
+```{r, echo=FALSE}
+MASS::abbey
+```
+
+The dataset **abbey** is located in the *MASS* package. We have not loaded this package, and yet we can access the dataset. (Try entring only *abbey* in the console. You will get an error message that states that the object *'abbey'* cannot be found).
+
+If we have not loaded a package, we can only access commands that are in it by preceding that command by the package name and an **::**. Every time you need to access the command or data set, you need to do this. If you need to use the command many times then, it is better to directly load the package. If you need to use the package only once or twice, then it may be better to use the package name. 
 
 
