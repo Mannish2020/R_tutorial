@@ -17,14 +17,6 @@ tags: []
 <p>I’ll introduce two of the most useful packages in R – <em>dplyr</em> for data management and <em>ggplot2</em> for graphics. Both of these were created by Hadley Wickham. Wickham has created or collaborated on making many other packages, and we’ll see more of those. For now, let’s just look at these two.</p>
 <p>In R, if you want to access packages, you need to use the <span class="math inline">\(library()\)</span> function. Put the name of the package inside the function, like so:</p>
 <pre class="r"><code>library(dplyr)
-
-Attaching package: &#39;dplyr&#39;
-The following objects are masked from &#39;package:stats&#39;:
-
-    filter, lag
-The following objects are masked from &#39;package:base&#39;:
-
-    intersect, setdiff, setequal, union
 library(ggplot2)</code></pre>
 <p>Did that work? If you were told that the packages do not exist, you’ll have to install them. Installing them is easy. Use the <span class="math inline">\(install.packages()\)</span> function for that. Put the name of the package within quotes, as follows:</p>
 <pre class="r"><code>install.packages(&quot;dplyr&quot;)

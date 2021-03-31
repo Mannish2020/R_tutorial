@@ -23,7 +23,7 @@ I'll introduce two of the most useful packages in R -- *dplyr* for data manageme
 
 In R, if you want to access packages, you need to use the $library()$ function. Put the name of the package inside the function, like so:
 
-```{r}
+```{r,message=FALSE}
 library(dplyr)
 library(ggplot2)
 ```
