@@ -1,0 +1,48 @@
+---
+title: Installing R
+author: Manish Gyawali
+date: '2021-03-29'
+slug: installing-r
+categories: []
+tags: []
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>The first step is to install R inside your computer! To do that, you need to visit a the following website:</p>
+<p><strong><a href="https://cran.r-project.org/bin/windows/base/" class="uri">https://cran.r-project.org/bin/windows/base/</a></strong></p>
+<p>When you open the website, you will see the following page:</p>
+<p><img src="images/install-R.png" style="width:200.0%;height:200.0%" /></p>
+<p>Follow the instructions and download the package into an appropriate folder. I recommend setting up a separate <strong>Programs</strong> folder inside <strong>My Documents</strong> and putting R there.</p>
+<div id="accessing-r" class="section level3">
+<h3>Accessing R</h3>
+<p>R is not user friendly. However, we can make it much more approchable by using a program called <strong>RStudio</strong> as an interface between R and us. RStudio makes R easy to use, and also greatly expands what it can be used for.</p>
+<p>I have written a separate section that introduces you to RStudio. It contains all that a beginning needs to know to begin using it with confidence.</p>
+<p>However, it is possible to use R without RStudio, and here I touch briefly upon how to do it.</p>
+<p>Go to where you downloaded R. In my case location is as follows:</p>
+<p><img src="images/R-location.png" /></p>
+<p>These are the files that I see in that folder. You should have something that is similar.</p>
+<p><img src="images/r-folders.png" /></p>
+<p>Click on the second last row (that contains the <strong>R</strong> logo). That will open R.</p>
+<p>You should see an interface like the following upon opening R:</p>
+<p><img src="images/R-interface.png" /></p>
+<p>Your R interface probably has a different colour. Very likely the background is white and the letters are black or blue. In any case, what’s written in your interface should be very similar to what’s written here.</p>
+<p>There ought to be a cursor blinking after the “greater than sign”, <strong>&gt;</strong> that lies after the script.</p>
+<p>Enter <span class="math inline">\(str(mtcars)\)</span> after the <span class="math inline">\(&gt;\)</span> sign, as follows:</p>
+<pre class="r"><code>&gt; str(mtcars)</code></pre>
+<p>Do you see the following?</p>
+<pre><code>&#39;data.frame&#39;:   32 obs. of  11 variables:
+ $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+ $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
+ $ disp: num  160 160 108 258 360 ...
+ $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...
+ $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+ $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
+ $ qsec: num  16.5 17 18.6 19.4 17 ...
+ $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
+ $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
+ $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
+ $ carb: num  4 4 1 1 2 1 4 2 2 4 ...</code></pre>
+<p>If so, congratulations! R is working and you can begin to start coding!</p>
+</div>
